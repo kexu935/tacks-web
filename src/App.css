@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 .App {
   text-align: center;
 }
@@ -16,6 +18,9 @@
 
 .App-title {
   font-size: 1.5em;
+  float: left;
+  padding-top: 16px;
+  color: #61dafb;
 }
 
 .App-intro {
