@@ -112,17 +112,10 @@ class RegistrationForm extends React.Component {
             <Form onSubmit={this.handleSubmit}>
                 <FormItem
                     {...formItemLayout}
-                    label={(
-                        <span>
-              Nickname&nbsp;
-                            <Tooltip title="What do you want others to call you?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
-            </span>
-                    )}
+                    label="Username"
                 >
-                    {getFieldDecorator('nickname', {
-                        rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                    {getFieldDecorator('username', {
+                        rules: [{ required: true, message: 'Please input your username!', whitespace: true }],
                     })(
                         <Input />
                     )}
