@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
-import { Form, Icon, Input, Button, message} from 'antd';
+import { Form, Icon, Input, Button, message } from 'antd';
 import {API_ROOT} from '../constants'
 import { Link } from 'react-router-dom'
 
@@ -21,6 +21,7 @@ class NormalLoginForm extends React.Component {
                     })
                 }).then((response) => {
                     message.success(response);
+                    this.props.handleLogin(response);
                 }, (error) => {
                     message.error(error.responseText);
                 }).catch((error) => {
