@@ -1,8 +1,12 @@
 import React from 'react';
 import logo from '../assets/images/logo.svg';
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
 
 export class Header extends React.Component {
+    handleLogout = () => {
+        this.props.handleLogout();
+        message.success("You've logged out!");
+    }
     render() {
         return (
             <header className="App-header">
@@ -10,7 +14,7 @@ export class Header extends React.Component {
                 <h1 className="App-title">Around</h1>
                 {this.props.isLoggedIn ?
                     <a className='logout'
-                       onClick={this.props.handleLogout}>
+                       onClick={this.handleLogout}>
                         <Icon type="logout" /> Log Out
                     </a> : null}
             </header>
