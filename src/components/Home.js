@@ -17,7 +17,8 @@ export class Home extends React.Component {
     }
 
     onSuccessGetGeoLocation = (position) => {
-        console.log(position);
+        const {latitude, longitude} = position.coords;
+        localStorage.setItem('POS_KEY', JSON.stringify({lat: latitude, lon: longitude}));
     }
 
     onFailedLoadGeoLocation = () => {
