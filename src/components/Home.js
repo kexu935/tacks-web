@@ -1,6 +1,7 @@
 import React from 'react';
-import { Tabs, Button } from 'antd';
+import { Tabs, Button, Spin } from 'antd';
 import {GEO_OPTIONS} from '../constants';
+
 const TabPane = Tabs.TabPane;
 
 export class Home extends React.Component {
@@ -26,7 +27,7 @@ export class Home extends React.Component {
     }
 
     onFailedLoadGeoLocation = () => {
-        this.setState({loadingGeoLocation:true});
+        this.setState({loadingGeoLocation:false});
         console.log('failed');
     }
 
@@ -40,7 +41,7 @@ export class Home extends React.Component {
         return (
             <Tabs tabBarExtraContent={operations} className="main-tabs">
                 <TabPane tab="Posts" key="1">
-                    {this.state.loadingGeoLocation ? <span>loading..</span> : null}</TabPane>
+                    {this.state.loadingGeoLocation ? <Spin tip="Loading geo location..."/> : null}</TabPane>
                 <TabPane tab="Map" key="2">Content of tab 2</TabPane>
             </Tabs>
         );
