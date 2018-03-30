@@ -7,6 +7,7 @@ const TabPane = Tabs.TabPane;
 
 export class Home extends React.Component {
     state = {
+        loadingPosts: false,
         loadingGeoLocation : false,
         error: '',
     }
@@ -44,14 +45,16 @@ export class Home extends React.Component {
             return <div>{this.state.error}</div>;
         } else if (this.state.loadingGeoLocation) {
             return <Spin tip='Loading geo location...'/>;
-        } else {
-            return <div>content</div>
+        } else if (this.state.loadingPosts) {
+            return <Spin tip='Loading posts...'/>;
+        } else
+            return <div>content</div>;
         }
-    }
 
     loadNearbyPosts = (position) => {
         const lat = 37.7915953;
         const lon = -122.3937977;
+        this.setState({loadingPosts: true});
         $.ajax({
             url: `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=20`,
             method: 'GET',
@@ -60,8 +63,10 @@ export class Home extends React.Component {
             }
         }).then((response) => {
             console.log(response);
+            this.setState({loadingPosts: false, error: ''});
         }, (response) => {
             console.log(response.responseText);
+            this.setState({loadingPosts: false, error: response.responseText});
         }).catch((error) => {
             console.log(error);
         });
