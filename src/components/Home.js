@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tabs, Button, Spin } from 'antd';
-import {GEO_OPTIONS} from '../constants';
+import {GEO_OPTIONS, API_ROOT, AUTH_PREFIX, TOKEN_KEY} from '../constants';
+import $ from 'jquery';
 
 const TabPane = Tabs.TabPane;
 
@@ -22,14 +23,15 @@ export class Home extends React.Component {
     }
 
     onSuccessGetGeoLocation = (position) => {
-        this.setState({loadingGeoLocation:false});
+        this.setState({loadingGeoLocation:false, error:''});
         const {latitude, longitude} = position.coords;
         localStorage.setItem('POS_KEY', JSON.stringify({lat: latitude, lon: longitude}));
+        this.loadNearbyPosts(position);
     }
 
     onFailedLoadGeoLocation = () => {
         this.setState({loadingGeoLocation:true, error:'Failed to load geo location!'});
-        console.log('failed');
+        console.log('failed get geolocation');
     }
 
     componentDidMount() {
@@ -47,6 +49,23 @@ export class Home extends React.Component {
         }
     }
 
+    loadNearbyPosts = (position) => {
+        const lat = 37.7915953;
+        const lon = -122.3937977;
+        $.ajax({
+            url: `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=20`,
+            method: 'GET',
+            headers: {
+                Authorization: `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`
+            }
+        }).then((response) => {
+            console.log(response);
+        }, (response) => {
+            console.log(response.responseText);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
     render() {
         const operations = <Button type="primary">Create New Post</Button>;
