@@ -4,6 +4,9 @@ import {GEO_OPTIONS} from '../constants';
 const TabPane = Tabs.TabPane;
 
 export class Home extends React.Component {
+    state = {
+        loadingGeoLocation : false,
+    }
     getGeoLocation = () => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
@@ -17,15 +20,18 @@ export class Home extends React.Component {
     }
 
     onSuccessGetGeoLocation = (position) => {
+        this.setState({loadingGeoLocation:false});
         const {latitude, longitude} = position.coords;
         localStorage.setItem('POS_KEY', JSON.stringify({lat: latitude, lon: longitude}));
     }
 
     onFailedLoadGeoLocation = () => {
+        this.setState({loadingGeoLocation:true});
         console.log('failed');
     }
 
     componentDidMount() {
+        this.setState({loadingGeoLocation:true});
         this.getGeoLocation();
     }
 
@@ -33,7 +39,8 @@ export class Home extends React.Component {
         const operations = <Button type="primary">Create New Post</Button>;
         return (
             <Tabs tabBarExtraContent={operations} className="main-tabs">
-                <TabPane tab="Posts" key="1">Content of tab 1</TabPane>
+                <TabPane tab="Posts" key="1">
+                    {this.state.loadingGeoLocation ? <span>loading..</span> : null}</TabPane>
                 <TabPane tab="Map" key="2">Content of tab 2</TabPane>
             </Tabs>
         );
