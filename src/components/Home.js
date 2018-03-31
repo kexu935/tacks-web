@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs, Button, Spin } from 'antd';
-import {GEO_OPTIONS, API_ROOT, AUTH_PREFIX, TOKEN_KEY} from '../constants';
+import {GEO_OPTIONS, API_ROOT, AUTH_PREFIX, TOKEN_KEY, POS_KEY } from '../constants';
 import $ from 'jquery';
 import {Gallery} from "./Gallery";
 import {CreatePostButton} from "./CreatePostButton"
@@ -29,7 +29,7 @@ export class Home extends React.Component {
     onSuccessGetGeoLocation = (position) => {
         this.setState({loadingGeoLocation:false, error:''});
         const {latitude, longitude} = position.coords;
-        localStorage.setItem('POS_KEY', JSON.stringify({lat: latitude, lon: longitude}));
+        localStorage.setItem(POS_KEY, JSON.stringify({lat: latitude, lon: longitude}));
         this.loadNearbyPosts(position);
     }
 
@@ -66,11 +66,10 @@ export class Home extends React.Component {
             return null;
         }
 
-    loadNearbyPosts = (position) => {
-        const lat = 37.535623;
-        const lon = -122.26956;
+    loadNearbyPosts = () => {
+        const { lat, lon } = JSON.parse(localStorage.getItem(POS_KEY));
         this.setState({loadingPosts: true});
-        $.ajax({
+        return $.ajax({
             url: `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=20`,
             method: 'GET',
             headers: {
@@ -88,7 +87,7 @@ export class Home extends React.Component {
     }
 
     render() {
-        const operations = <CreatePostButton/>;
+        const operations = <CreatePostButton loadNearbyPosts={this.loadNearbyPosts}/>;
         return (
             <Tabs tabBarExtraContent={operations} className="main-tabs">
                 <TabPane tab="Posts" key="1">
