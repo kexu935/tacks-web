@@ -8,3 +8,4 @@ export const GEO_OPTIONS = {
 export const AUTH_PREFIX = 'Bearer';
 export const POS_KEY = 'POS_KEY';
 export const LOC_SHAKE = 0.02;
+export const METER_MILE = 0.000621371192;
