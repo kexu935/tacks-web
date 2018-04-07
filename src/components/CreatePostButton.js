@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, message } from 'antd';
 import { WrappedCreatePostForm} from "./CreatePostForm"
 import $ from 'jquery';
-import {API_ROOT, TOKEN_KEY, POS_KEY, AUTH_PREFIX} from "../constants"
+import { API_ROOT, TOKEN_KEY, POS_KEY, AUTH_PREFIX, LOC_SHAKE } from "../constants"
 
 export class CreatePostButton extends React.Component {
     state = {
@@ -20,8 +20,8 @@ export class CreatePostButton extends React.Component {
                this.setState({confirmLoading: true,});
                const {lat, lon} = JSON.parse(localStorage.getItem(POS_KEY));
                const formData = new FormData();
-               formData.set('lat', lat);
-               formData.set('lon', lon);
+               formData.set('lat', lat + Math.random() * LOC_SHAKE * 2 - LOC_SHAKE);
+               formData.set('lon', lon + Math.random() * LOC_SHAKE * 2 - LOC_SHAKE);
                formData.set('message', values.message);
                formData.set('image', values.image[0]);
 
@@ -37,6 +37,7 @@ export class CreatePostButton extends React.Component {
                    dataType: 'text',
                }).then(() => {
                    message.success("You created a post!");
+                   this.form.resetFields();
                    this.props.loadNearbyPosts().then(() => {
                        this.setState({
                            visible: false,
