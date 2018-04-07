@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Button, Spin } from 'antd';
+import { Tabs, Spin } from 'antd';
 import {GEO_OPTIONS, API_ROOT, AUTH_PREFIX, TOKEN_KEY, POS_KEY } from '../constants';
 import $ from 'jquery';
 import {Gallery} from "./Gallery";
@@ -14,33 +14,30 @@ export class Home extends React.Component {
         error: '',
         posts:[],
     }
-    getGeoLocation = () => {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                this.onSuccessGetGeoLocation,
-                this.onFailedLoadGeoLocation,
-                GEO_OPTIONS);
-        } else {
-            /* geolocation IS NOT available */
-        }
-
-    }
 
     onSuccessGetGeoLocation = (position) => {
-        this.setState({loadingGeoLocation:false, error:''});
-        const {latitude, longitude} = position.coords;
-        localStorage.setItem(POS_KEY, JSON.stringify({lat: latitude, lon: longitude}));
-        this.loadNearbyPosts(position);
+        this.setState({loadingGeoLocation: false, error: ''});
+        const { latitude: lat, longitude: lon } = position.coords;
+        const location = {lat: lat, lon: lon};
+        localStorage.setItem(POS_KEY, JSON.stringify(location));
+        this.loadNearbyPosts(location);
     }
 
     onFailedLoadGeoLocation = () => {
         this.setState({loadingGeoLocation:true, error:'Failed to load geo location!'});
-        console.log('failed get geolocation');
     }
 
     componentDidMount() {
-        this.setState({loadingGeoLocation:true});
-        this.getGeoLocation();
+        if ("geolocation" in navigator) {
+            this.setState({ loadingGeoLocation: true, error: '' });
+            navigator.geolocation.getCurrentPosition(
+                this.onSuccessGetGeoLocation,
+                this.onFailedLoadGeoLocation,
+                GEO_OPTIONS,
+            );
+        } else {
+            this.setState({ error: 'Your browser does not support geolocation!'});
+        }
     }
 
     getGalleryPanelContent = () => {
@@ -66,11 +63,12 @@ export class Home extends React.Component {
             return null;
         }
 
-    loadNearbyPosts = () => {
-        const { lat, lon } = JSON.parse(localStorage.getItem(POS_KEY));
+    loadNearbyPosts = (location, radius) => {
+        const { lat, lon } = location ? location : JSON.parse(localStorage.getItem(POS_KEY));
+        const range = radius ? radius : 20;
         this.setState({loadingPosts: true});
         return $.ajax({
-            url: `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=20`,
+            url: `${API_ROOT}/search?lat=${lat}&lon=${lon}&range=${range}`,
             method: 'GET',
             headers: {
                 Authorization: `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`
