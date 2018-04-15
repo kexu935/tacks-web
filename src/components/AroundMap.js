@@ -1,7 +1,7 @@
 import React from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import { AroundMarker } from "./AroundMarker"
-import {METER_MILE, POS_KEY} from "../constants"
+import {M_KM, POS_KEY} from "../constants"
 
 
 class AroundMap extends React.Component {
@@ -23,7 +23,7 @@ class AroundMap extends React.Component {
         if (center && bounds) {
             const ne = bounds.getNorthEast();
             const right = new google.maps.LatLng(center.lat(), ne.lng());
-            return METER_MILE * google.maps.geometry.spherical.computeDistanceBetween(center, right);
+            return M_KM * google.maps.geometry.spherical.computeDistanceBetween(center, right);
         }
     }
 
