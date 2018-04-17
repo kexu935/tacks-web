@@ -15,4 +15,4 @@ This repository only contains frontend. Backend is here: [https://github.com/kex
 * Gallery of posts<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_25_34.png"></p>
 * Click each post to zoom in<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_25_49.png"></p>
 * Map<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_29_29.png"></p>
-* Zoom out map to get a larger view. Travel and add more tacks on the map!<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_29_58.png"></p>
+* Zoom out map to get a larger view. Travel and add more tacks to the map!<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_29_58.png"></p>
