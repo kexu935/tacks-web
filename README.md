@@ -10,4 +10,4 @@ This repository only contains frontend. Backend is here: [https://github.com/kex
 
 ## Screenshots
 * Login:
-![Alt text](https://drive.google.com/open?id=1ZeQ0QQjx8I6p_rYjqMsXOoEu2_L_23fY "ss1")
+<p align="center"><img src="https://drive.google.com/open?id=1ZeQ0QQjx8I6p_rYjqMsXOoEu2_L_23fY"></p>
