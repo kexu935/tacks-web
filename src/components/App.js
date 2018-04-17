@@ -8,6 +8,11 @@ class App extends Component {
   state ={
       isLoggedIn : Boolean(localStorage.getItem(TOKEN_KEY)),
   }
+
+  componentDidMount() {
+      document.title = "Tacks";
+  }
+
   handleLogin = (token) => {
       localStorage.setItem(TOKEN_KEY, token);
       this.setState({isLoggedIn:true});
