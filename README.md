@@ -7,3 +7,7 @@ This repository only contains frontend. Backend is here: [https://github.com/kex
 * Utilized [BigQuery](https://cloud.google.com/bigquery/) to analyze posts dumped from [BigTable](https://cloud.google.com/bigtable/) by using [Cloud Dataflow](https://cloud.google.com/dataflow/) to understand system work load, user distribution, etc.
 * Improved the keyword-based spam detection by aggregating the data at the post level and user level
 * Implemented authentication using OAuth 2.0 and utilized Redis to improve cache performance
+
+## Screenshots
+* Login:
+![Alt text](https://drive.google.com/open?id=1ZeQ0QQjx8I6p_rYjqMsXOoEu2_L_23fY)
