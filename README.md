@@ -11,3 +11,15 @@ This repository only contains frontend. Backend is here: [https://github.com/kex
 ## Screenshots
 * Login:
 <p align="center"><img src="/screenshots/screencapture-localhost-3000-login-2018-04-17-14_19_42.png"></p>
+* Register:
+<p align="center"><img src="/screenshots/screencapture-localhost-3000-register-2018-04-17-14_20_41.png"></p>
+* Upload images:
+<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_24_44.png"></p>
+* Gallery of posts:
+<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_25_34.png"></p>
+* Click each post to zoom in:
+<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_25_49.png"></p>
+* Map:
+<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_29_29.png"></p>
+* Zoom out map to get a larger view:
+<p align="center"><img src="/screenshots/screencapture-localhost-3000-home-2018-04-17-14_29_58.png"></p>
